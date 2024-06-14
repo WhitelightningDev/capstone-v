@@ -55,30 +55,6 @@ List the features of your application:
 - React Toastify
 - Other relevant technologies
 
-## Folder Structure
-
-capstone-v/
-│
-├── public/
-│ ├── index.html
-│ 
-│
-├── src/
-│ ├── components/
-│ │ ├── AddCredential.js
-│ │ ├── UpdateCredential.js
-│ │ ├── ViewCredentials.js
-│ │ ├── AssignDivision.js
-│ │ ├── Login.js
-│ │ ├── Register.js
-│ │ └── ...
-│ ├── App.js
-│ ├── index.js
-│ └── ...
-│
-├── package.json
-└── README.md
-
 
 ## Contributing
 
