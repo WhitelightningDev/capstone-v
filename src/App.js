@@ -1,11 +1,11 @@
 import React from 'react';  // Import React
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';  // Import Router components from react-router-dom
-import ViewCredentials from './ViewCredentials';  // Import ViewCredentials component
-import AddCredential from './AddCredential';  // Import AddCredential component
-import UpdateCredential from './UpdateCredential';  // Import UpdateCredential component
-import Login from './Login';  // Import Login component
-import Register from './Register';  // Import Register component
-import AssignDivision from './AssignDivision';  // Import AssignDivision component
+import ViewCredentials from './components/ViewCredentials';  // Import ViewCredentials component
+import AddCredential from './components/AddCredential';  // Import AddCredential component
+import UpdateCredential from './components/UpdateCredential';  // Import UpdateCredential component
+import Login from './components/Login';  // Import Login component
+import Register from './components/Register';  // Import Register component
+import AssignDivision from './components/AssignDivision';  // Import AssignDivision component
 import { ToastContainer } from 'react-toastify';  // Import ToastContainer for displaying toast notifications
 import 'react-toastify/dist/ReactToastify.css';  // CSS for toast notifications
 import 'bootstrap/dist/css/bootstrap.min.css';  // Bootstrap CSS for styling
