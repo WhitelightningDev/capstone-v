@@ -1,70 +1,112 @@
-# Getting Started with Create React App
+# Capstone-V Backend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repository contains the backend code for the Capstone-V project, built with Node.js, Express, and MongoDB. It handles user authentication, credential repository management, and user roles and permissions.
 
-## Available Scripts
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Endpoints](#api-endpoints)
+- [Environment Variables](#environment-variables)
+- [Contributing](#contributing)
+- [License](#license)
 
-In the project directory, you can run:
+## Installation
 
-### `npm start`
+1. **Clone the repository:**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+bash
+git clone https://github.com/yourusername/capstone-v-backend.git
+cd capstone-v-backend
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. Install dependencies:
+   npm install
+3. Set up environment variables:
+   Create a .env file in the root directory and add the following variables:
+   MONGODB_URI=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret
+   PORT=3030
 
-### `npm test`
+   Replace your_mongodb_connection_string with your actual MongoDB connection string and your_jwt_secret with a secret key for JWT signing.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Usage
 
-### `npm run build`
+Start the server:
+   npm start
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# API Endpoints
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Authentication
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+POST /api/auth/register
 
-### `npm run eject`
+Register a new user.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password123"
+}
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+POST /api/auth/login
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Log in a user.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
 
-## Learn More
+# Credential Repositories
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+POST /api/credential-repositories/
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Add a credential to a specific repository (admin only).
 
-### Code Splitting
+{
+  "name": "Credential Name",
+  "username": "user123"
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# Users
 
-### Analyzing the Bundle Size
+PUT /api/users/change-role/
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Change the role of a user (admin only).
 
-### Making a Progressive Web App
+{
+  "role": "admin"
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+POST /api/users/assign-division/
+/
 
-### Advanced Configuration
+Assign a user to a division (admin only).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+{
+  "divisionId": "1234567890abcdef",
+  "userId": "0987654321fedcba"
+}
 
-### Deployment
+## Environment Variables
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The following environment variables need to be set in your .env file:
 
-### `npm run build` fails to minify
+- MONGODB_URI: MongoDB connection string.
+- JWT_SECRET: Secret key for JWT signing.
+- PORT: Port on which the server runs (default: 3030).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# Contributing
+1. Fork the repository.
+2. Create a new branch.
+3. Make your changes.
+4. Submit a pull request.
+
+
+
+
+
+
+
+
+
