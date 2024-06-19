@@ -1,69 +1,84 @@
-import React, { useState } from 'react';  // Import React and useState hook for state management
-import axios from 'axios';  // Import axios for making HTTP requests
-import { toast } from 'react-toastify';  // Import toast notification library
-import 'react-toastify/dist/ReactToastify.css';  // Import CSS for toast notifications
-import 'bootstrap/dist/css/bootstrap.min.css';  // Import Bootstrap CSS for styling
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login = () => {
-    const [email, setEmail] = useState('');  // State for storing email input
-    const [password, setPassword] = useState('');  // State for storing password input
-    const [role, setRole] = useState('Newsmanagement');  // State for storing selected role, default is 'Newsmanagement'
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
-    // Function to handle form submission
     const handleSubmit = async (e) => {
-        e.preventDefault();  // Prevent default form submission
+        e.preventDefault();
         try {
-            // Send POST request to login endpoint with email and password
             const response = await axios.post('/api/auth/login', { email, password });
-            toast.success('Login successful');  // Show success toast notification
-            console.log(response.data);  // Log response data to console
+            toast.success('Login successful');
+            localStorage.setItem('token', response.data.token); // Store token in local storage
+            navigate('/home'); // Redirect to home page
         } catch (error) {
-            toast.error('Login failed');  // Show error toast notification
-            console.error(error);  // Log error to console
+            toast.error('Login failed');
+            console.error(error);
+        }
+    };
+
+    const handleDemoLogin = async () => {
+        try {
+            const response = await axios.post('/api/auth/demo-login');
+            toast.success('Demo login successful');
+            localStorage.setItem('token', response.data.token); // Store token in local storage
+            navigate('/home'); // Redirect to home page
+        } catch (error) {
+            toast.error('Demo login failed');
+            console.error(error);
         }
     };
 
     return (
-        <div className="container mt-5">
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <input
-                        type="email"
-                        className="form-control"
-                        placeholder="Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}  // Update email state on input change
-                        required  // Make input required
-                    />
+        <div className="container mt-5 d-flex justify-content-center">
+            <div className="card p-4" style={{ maxWidth: '400px', width: '100%' }}>
+                <h1 className="card-title text-center mb-4">Login</h1>
+                <form onSubmit={handleSubmit} className="needs-validation" noValidate>
+                    <div className="mb-3">
+                        <label htmlFor="email" className="form-label">Email</label>
+                        <input
+                            type="email"
+                            className="form-control"
+                            id="email"
+                            placeholder="Enter your email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                        <div className="invalid-feedback">
+                            Please enter a valid email.
+                        </div>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="password" className="form-label">Password</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            id="password"
+                            placeholder="Enter your password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                        <div className="invalid-feedback">
+                            Please enter your password.
+                        </div>
+                    </div>
+                    <button type="submit" className="btn btn-primary w-100">Login</button>
+                    <button type="button" className="btn btn-secondary w-100 mt-2" onClick={handleDemoLogin}>Demo Login</button>
+                </form>
+                <div className="text-center mt-3">
+                    <p className="mb-0">Don't have an account? <a href="/register">Register here</a></p>
                 </div>
-                <div className="mb-3">
-                    <input
-                        type="password"
-                        className="form-control"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}  // Update password state on input change
-                        required  // Make input required
-                    />
-                </div>
-                <div className="mb-3">
-                    <select
-                        className="form-select"
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}  // Update role state on select change
-                        required  // Make select required
-                    >
-                        <option value="Newsmanagement">Newsmanagement</option>
-                        <option value="Software reviews">Software reviews</option>
-                        <option value="Hardware reviews">Hardware reviews</option>
-                        <option value="Opinion publishing">Opinion publishing</option>
-                    </select>
-                </div>
-                <button type="submit" className="btn btn-primary">Login</button>  {/* Submit button */}
-            </form>
+            </div>
         </div>
     );
 };
 
-export default Login;  // Export Login component as default
+export default Login;
